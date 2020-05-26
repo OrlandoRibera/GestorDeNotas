@@ -28,7 +28,7 @@ Proyecto de Gestor de notas con roles de Alumnos, Docentes y Staff, desarrollado
     $ pip install -r /path/to/requirements.txt
     
 ### Base de datos
-----------------
+
   - Roles de Docente y Alumno
   
   * Docente:
@@ -41,4 +41,4 @@ Proyecto de Gestor de notas con roles de Alumnos, Docentes y Staff, desarrollado
     - Can see calificacion
      
      
--- Solo el staff podrá añadir usuarios
+-Solo el staff podrá añadir usuarios
