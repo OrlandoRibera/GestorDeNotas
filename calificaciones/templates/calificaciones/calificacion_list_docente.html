@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    {{ materia.nombre|truncatechars:20 }}
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <h1 class="section-heading mb-2">{{ materia.nombre }}</h1>
+                    <p class="section-heading mb-2">
+                        Docente: <span>{{ materia.docente.last_name }} {{ materia.docente.first_name }}</span></p>
+                    <p class="section-heading mb-4">Alumno: <span>{{ alumno.last_name }} {{ alumno.first_name }}</span>
+                    </p>
+                    <div>
+                        <div class="d-flex justify-content-between mb-4 mt-4">
+                            <h4>Notas</h4>
+                            <div class="mt-2">
+                                <a href="{% url 'calificacion:create' materia.id alumno.id %}" class="btn-link">Añadir
+                                    nueva
+                                    calificación</a>
+                            </div>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo</th>
+                                <th>Nota</th>
+                                <th>Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for calificacion in calificacion_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ calificacion.tipo }}</td>
+                                    <td>{{ calificacion.nota }}</td>
+                                    <td>
+                                        <a class="btn btn-primary"
+                                           href="{% url 'calificacion:update' calificacion.id %}">Editar</a>
+                                        <a class="btn btn-danger"
+                                           href="{% url 'calificacion:delete' calificacion.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

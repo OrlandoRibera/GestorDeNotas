@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Detalle Materia{% endblock %}
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <h1 class="section-heading mb-4">{{ materia.nombre }}</h1>
+                    <h3 class="section-heading mb-2">
+                        Docente: {{ materia.docente.first_name|default:'Sin docente' }} {{ materia.docente.last_name|default:'asignado' }}</h3>
+                    <div>
+                        <p>Días: <span>{{ materia.dias }}</span></p>
+                        <p>Horario: <span>de {{ materia.hora_inicio }} a {{ materia.hora_fin }}</span></p>
+                        <p>¿Confirmada?: <span>{% if materia.estado %}Sí{% else %}No{% endif %}</span></p>
+                        <p>Créditos: <span>{{materia.creditos}}</p>
+                        <p>Semestre: <span>{{materia.semestre}}</p>
+                        {% load group %}
+                        {% if request.user.is_staff or request.user|has_group:"Docente" %}
+                            <p class="text-primary h3">Alumnos</p>
+                            <table class="table table-striped">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Apellido</th>
+                                    <th>Nombre</th>
+                                    <th>Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for estudiante in materia.estudiantes_inscritos.all %}
+                                    <tr>
+                                        <td>{{ estudiante.last_name }}</td>
+                                        <td>{{ estudiante.first_name }}</td>
+                                        <td><a href="{% url 'calificacion:index_docente' materia.id estudiante.id %}"
+                                               class="btn-link">Ver notas</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <a href="{% url 'calificacion:index_alumno' materia.id %}"
+                               class="btn-link">Ver notas de la materia</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

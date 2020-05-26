@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load group %}
+{% block title %}
+    Materias
+{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between mb-4 mt-4">
+        <h1 class="">Lista de materias</h1>
+        {% if request.user.is_staff %}
+            <div class="mt-2">
+                <a href="{% url 'materia:create' %}" class="btn btn-primary">Crear</a>
+            </div>
+        {% endif %}
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Docente</th>
+            <th scope="col">Dias</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for materia in materia_list %}
+            <tr>
+                <td scope="row">{{ materia.id }}</td>
+                <td>{{ materia.nombre }}</td>
+                <td>{{ materia.docente.first_name|default:'Sin docente' }} {{ materia.docente.last_name|default:'asignado' }}</td>
+                <td>{{ materia.dias }}</td>
+                <td>de {{ materia.hora_inicio }} a {{ materia.hora_fin }}</td>
+                <td>
+                    {% load group %}
+                    {% if request.user|has_group:'Alumno' %}
+                        <a href="{% url 'materia:materia' materia.id %}" class="btn btn-primary">
+                            Detalles
+                        </a>
+                        <a href="{% url 'calificacion:index_alumno' materia.id %}" class="btn btn-secondary">
+                            Ver notas
+                        </a>
+                    {% endif %}
+                    {% if request.user|has_group:'Docente' %}
+                        <a href="{% url 'materia:materia' materia.id %}" class="btn btn-info">
+                            Detalles
+                        </a>
+                    {% endif %}
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'materia:update' materia.id %}" class="btn btn-primary">
+                            Editar
+                        </a>
+                        <a href="{% url 'materia:delete' materia.id %}" class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

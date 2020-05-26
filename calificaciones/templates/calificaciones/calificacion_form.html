@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Crear Reunión{% endblock %}
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3 mb-3">
+                <div class="col-md-9 mx-auto">
+                    <h2 class="section-heading mb-2">{{ materia.nombre }}</h2>
+                    <p class="h5"> Usted está añadiendo una calificación al alumno:
+                        <span>{{ alumno.last_name }} {{ alumno.first_name }}</span></p>
+                    <div class="text-danger">
+                        {% if form.subject.errors %}
+                            <ol>
+                                {% for error in form.subject.errors %}
+                                    <li><strong>{{ error|escape }}</strong></li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                        {% if form.non_fields_errors %}
+                            <div class="form-group text-danger">
+                                {{ form.non_fields_errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <form action="" method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="text-center">
+                            <input class="btn btn-primary btn-block" type="submit" value="Crear calificación"/>
+                            <br/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

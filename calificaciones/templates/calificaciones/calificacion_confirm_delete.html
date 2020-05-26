@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Borrar Calificación{% endblock %}
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <div>
+                        <h1>{{ object.materia.nombre }}</h1>
+                        <p>Alumno: <span>{{ object.alumno.last_name }} {{ object.alumno.first_name }}</span></p>
+                        <p>Calificación: <span>{{ object.nota }} - {{ object.tipo }}</span></p>
+                        <form action="" method="post">{% csrf_token %}
+                            <p>¿Estás seguro de que quiere borrar esta calificación?</p>
+                            <input class="btn btn-danger btn-block" type="submit" value="Sí, borrar la calificación"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

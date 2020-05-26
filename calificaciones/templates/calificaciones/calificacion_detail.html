@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Detalle Calificación{% endblock %}
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <h2 class="section-heading mb-4">{{ calificacion.materia__nombre }}</h2>
+                    <div>
+                        <p>Alumno: <span>{{ calificacion.alumno.first_name }} {{ calificacion.alumno.last_name }}</span>
+                        </p>
+                        <p>Nota: <span>{{ calificacion.nota }} - {{ calificacion.tipo }}</span></p>
+
+                        {% if request.user.id == calificacion.materia.docente.id %}
+                            <p>
+                                <a href="{% url 'calificacion:update' calificacion.id %}"
+                                   class="btn btn-primary">Editar</a>
+                                <a href="{% url 'calificacion:delete' calificacion.id %}" class="btn btn-danger">Eliminar</a>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

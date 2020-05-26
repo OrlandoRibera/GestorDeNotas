@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Actualizar página{% endblock %}
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <h2 class="section-heading mb-2">{{ calificacion.materia.nombre }}</h2>
+                    <p class="h5"> Usted está actualizando una calificación al alumno:
+                        <span>{{ calificacion.alumno.last_name }} {{ calificacion.alumno.first_name }}</span></p>
+                    <div>
+                        {% if 'ok' in request.GET %}
+                            <p style="color:green">
+                                Calificación editada correctamente
+                                {{ calificacion.id }}
+                                <a href="{% url 'calificacion:calificacion' calificacion.id %}">Haz clic aquí para ver
+                                    los detalles de la calificación</a>
+                            </p>
+                        {% endif %}
+                        <div class="text-danger">
+                            {% if form.subject.errors %}
+                                <ol>
+                                    {% for error in form.subject.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                            {% if form.non_fields_errors %}
+                                <div class="form-group text-danger">
+                                    {{ form.non_fields_errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <form action="" method="post">{% csrf_token %}
+                            {{ form.as_p }}
+                            <input class="btn btn-primary btn-block" type="submit" value="Guardar calificación"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
