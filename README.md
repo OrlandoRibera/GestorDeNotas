@@ -1,8 +1,7 @@
 # GestorDeNotas
 Proyecto de Gestor de notas con roles de Alumnos, Docentes y Staff, desarrollado con Django
 
-APPS
-----
+## APPS
 
   - Calificaciones
   - Core
@@ -10,26 +9,25 @@ APPS
   - Registration
   - Gestornotas
  
-MODELS
-------
+## MODELS
 
   - Calificacion
   - Materia
   - User
 
-FEATURES
---------
+## FEATURES
 
   - Generic Views
   - User roles ( 'Docente', 'Alumnos' )
   - Forms
   
-Requisitos del proyecto
------------------------
+## Requisitos
+
+### Proyecto
 
     $ pip install -r /path/to/requirements.txt
     
-Requisitos en DB
+### Base de datos
 ----------------
   - Roles de Docente y Alumno
   
@@ -43,4 +41,4 @@ Requisitos en DB
     - Can see calificacion
      
      
-* Solo el staff podrá añadir usuarios
+-- Solo el staff podrá añadir usuarios
